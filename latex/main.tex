@@ -5,6 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{cite}
 
+\usepackage{url}
+
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
 
@@ -47,6 +49,9 @@ IEEEtran, journal, \LaTeX, paper, template.
 
 \section{CPU verzus GPU architektúra}
 
+Načo su určene CPU a načo GPU
+
+
 \subsection{Architektúra počítačových procesorov}
 
 CPU (Central Processing Unit) alebo aj procesor, je hlavný komponent počítača, ktorý načítava, spracováva a vykonáva inštrukcie nad rôznymi dátami. Procesor pozostáva z dvoch hlavných častí:
@@ -59,9 +64,9 @@ CPU (Central Processing Unit) alebo aj procesor, je hlavný komponent počítač
 Základný procesor pozostáva z piatich fáz \cite{hennessy2007compute}: 
 
 \begin{itemize}
-	\item{FETCH - fáza, v ktorej sa načítava inštrukcia z pamäte do procesora na základe adresy v registry IP/PC (instruction pointer/program counter) a jeho následnej inkrementácii na ďalšiu adresu }
-	\item{DECODE - zabezpečuje dekódovanie inštrukcie}
-	\item{EXECUTE - fáza, v ktorej procesor vykonáva rôzne výpočty pomocou ALU}
+	\item{IF (Instruction Fetch) - fáza, v ktorej sa načítava inštrukcia z pamäte do procesora na základe adresy v registry IP/PC (instruction pointer/program counter) a jeho následnej inkrementácii na ďalšiu adresu }
+	\item{ID (Instruction Decode) - zabezpečuje dekódovanie inštrukcie}
+	\item{EX (Execute) - fáza, v ktorej procesor vykonáva rôzne výpočty pomocou ALU}
 	\item{MEM (Memory Access) - v tejto fáze, procesor pristupuje do pamäte pre načítanie alebo uloženie dát}
 	\item{WB (Write Back) - procesor zapíše výsledky(hodnoty z predošlých fáz vypočítané v ALU) alebo hodnoty načítané z pamäte v predchádzajúcej fáze do registrov}
 \end{itemize}
@@ -72,9 +77,19 @@ Základný procesor pozostáva z piatich fáz \cite{hennessy2007compute}:
 \caption{Základný cyklus procesora}
 \end{figure}
 
-Takáto základná architektúra bola postupne vylepšovaná rôznymi mechanizmami (prúdovým spracovaním, detekciou a riešením hazardov, predikciou vetvenia a iné) pre dosiahnutie čo najlepšieho výkonu, t.j. dosiahnutie čo najmenšieho CPI (CPI - počet cyklov na inštrukciu).
+Takáto základná architektúra bola postupne vylepšovaná rôznymi mechanizmami (prúdovým spracovaním, detekciou a riešením hazardov, či závislostí, predikciou vetvenia a iné) pre dosiahnutie čo najlepšieho výkonu, t.j. dosiahnutie čo najmenšieho CPI (CPI - počet cyklov na inštrukciu).
 
+Jedným z vylepšení procesora je \textit{prúdové spracovanie.} To spočíva v tom, že v každom hodinovom cykle procesora dokážeme začať spracovávať novú inštrukciu \cite{hennessy2007compute}. Tým dokážeme znížiť vykonávanie jednej inštrukcie z piatich cyklov  na hodnotu blízkej jedna. Nie je to však jednoduché. Vznikajú takzvané \textit{hazardy} a \textit{závislosti v programe}. 
 
+Ďalším vylepšením procesora, kedy inžinieri chceli zvýšiť výkonnosť procesora, bolo vymyslením \textit{Hyper-threading}-u. Hyper-threading vytvára z jedného fyzického, viacero logických procesorov \cite{hyperthreading}. Procesor podporujúci danú technológiu si dokáže zapamätať viacero stavov procesora pomocou pridanej kompletnej sady jednotlivých registrov (základných, kontrolných, ...).  
+Princíp fungovania je jednoduchý: V každom čase sa spracováva len jedna úloha. Procesor však dokáže veľmi rýchlo prepínať medzi jednotlivými úlohami, čo vytvára pocit, že bežia súčasne. \newline
+Základnou nevýhodou hyper-threading-u je, že ostatné súčasti procesora (ALU, MMU, FPU, SIMD) zdieľa medzi úlohami (viď obr. \ref{img} \cite{picture}) \cite{hyper2}. Preto tento spôsob zlepšenia nám nezvýši výkon pri výpočtovo náročných úlohách (napr. násobenie matíc).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=4in]{img/hyper}
+\caption{Procesor s hyper-threading \label{img}}
+\end{figure}
 
 
 \subsection{Architektúra grafických procesorov}
@@ -118,6 +133,16 @@ HENNESSY, John L.; PATTERSON, David A. Computer architecture: a quantitative app
 
 \bibitem{tatourian}
 TATOURIAN, Alan. Nvidia gpu architecture and cuda programming environment. URL http://code. msdn. microsoft. com/windowsapps/NVIDIA-GPU-Architecture-45c11e6d, 2013.
+
+\bibitem{hyperthreading}
+PRECOMPUTATION, Speculative. Hyper-Threading Technology.
+
+\bibitem{hyper2}Intel Pentium 4 3.06 GHz with Hyper-Threading support, \url{http://ixbtlabs.com/articles2/pentium43ghzht/}, 12.11.2017.
+
+\bibitem{picture}Differences between physical CPU vs logical CPU vs Core vs Thread vs Socket, \url{http://www.daniloaz.com/en/differences-between-physical-cpu-vs-logical-cpu-vs-core-vs-thread-vs-socket/}, 12.11.2017.
+
+
+
 
 \end{thebibliography}
 
