@@ -40,7 +40,7 @@ Email: xkanuch@stuba.sk}}
 
 \begin{abstract}
 %\boldmath
-V posledných rokoch sa grafické procesory začali dostávať do popredia nie len na spracovanie obrazu, ale aj na vykonávanie, či spracovanie rôznych náročných výpočtových úloch. Keďže GPU architektúra bola navrhnutá a optimalizovaná pre paralelné spracovanie inštrukcií a dát, zatiaľ čo CPU sú optimalizované pre rýchle sequenčné spracovanie toku programu. V tomto článku porovnáme základnú architektúru CPU a GPU. Vysvetlíme princíp fungovania algoritmu SHA-1 a jeho modifikovanej paralelizovanej verzii. Daný algoritmus implementujeme v programovacom jazyku C pre klasické a v jazyku CUDA pre grafické procesory. Výsledky ukazujú porovnanie nameraných časov vykonávania daného algoritmu na CPU a GPU. V závere diskutujeme, prečo ešte v súčasnosti neexistuje automatický paralelizmus a automatické vykonávanie výpočtovo náročných úloch na grafických procesoroch.
+Keďže grafické procesory sú prispôsobené pre paralelné spracovanie úloh na viacerých jadrách, implementácia takto prispôsobeného problému zníši čas potrebný na jeho vykonanie oproti klasickým počítačovým procesorom. V článku sa zaoberáme implementáciou hashovacieho algoritmu SHA-1 upraveného pre paralelné spracovanie uvedeného v článku \cite{MSHA}. Našim hlavným cieľom je však ukázať, prečo v súčasnosti neexistuje automatický paralelizmus výpočtovo náročných úloh a ich vykonávanie na grafických procesoroch.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -51,6 +51,7 @@ SHA-1, Modified SHA-1, CPU architecture, GPU architecture, Automatic parallelism
 
 \section{Úvod}
 
+V posledných rokoch sa grafické procesory začali dostávať do popredia nie len na spracovanie obrazu, ale aj na vykonávanie, či spracovanie rôznych náročných výpočtových úloch. Architektúra grafických procesorov bola navrhnutá a optimalizovaná pre paralelné spracovanie inštrukcií a dát, zatiaľ čo CPU sú optimalizované pre rýchle sequenčné spracovanie toku programu. V tomto článku porovnáme základnú architektúru CPU a GPU. Vysvetlíme princíp fungovania algoritmu SHA-1 a jeho modifikovanej paralelizovanej verzii. Daný algoritmus implementujeme v programovacom jazyku C pre klasické a v jazyku CUDA pre grafické procesory. Výsledky ukazujú porovnanie nameraných časov vykonávania daného algoritmu na CPU a GPU. Taktiež daný algoritmus porovnávame s implementáciou štandartne používaného nástroja pre výpočet hashovacích funkcií SHA. V závere diskutujeme, prečo ešte v súčasnosti neexistuje automatický paralelizmus a automatické vykonávanie výpočtovo náročných úloch na grafických procesoroch.
 
 \section{CPU verzus GPU architektúra}
 
@@ -237,7 +238,6 @@ Princíp fungovania SHA:
 
 Princíp fungovania modifikovanej SHA: 
 \begin{enumerate}
-	\item{Zarovnanie správy pomocou nulových bajtov a doplnením veľkosti správy na koniec}
 	\item{Rozdelenie správy na bloky o veľkosti 64 bajtov}
 	\item{Pre každý blok}
 	\begin{enumerate}
@@ -248,6 +248,26 @@ Princíp fungovania modifikovanej SHA:
 	\item{Spojenie výsledkov jednotlivých blokov}
 	\item{Ak veľkosť bloku nerovná sa 20 bajtov $\implies$ pokračuj v bode 1.}
 \end{enumerate}
+
+
+\begin{algorithm}
+   \caption{Modified SHA-1 (pseudo code) \cite{MSHA}}
+    \begin{algorithmic}[1]
+      \Function{MSHA}{$Message$ $M$}
+
+        \State ${padding(M)}$ \Comment{Put zero bytes into message and its size at the end}
+        \State ${Blocks(M)}$ \Comment{Breaking message into 64 bytes blocks}
+	\ForEach {$block \in \mathcal M $} \Comment{Each block is independent}
+     		\State ${H_i = SHA(block)}$		
+     	\EndFor
+   	\State ${H += H_i}$ \Comment{+ mean concatenate}   	
+   	\If {(size(H) != 20B)} ${MSHA(M)}$
+   		\Else {  return}
+   	\EndIf
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
 
 \begin{figure}[!h]
 \centering
