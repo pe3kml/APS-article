@@ -40,7 +40,7 @@ Email: xkanuch@stuba.sk}}
 
 \begin{abstract}
 %\boldmath
-Keďže grafické procesory sú prispôsobené pre paralelné spracovanie úloh na viacerých jadrách, implementácia takto prispôsobeného problému zníši čas potrebný na jeho vykonanie oproti klasickým počítačovým procesorom. V článku sa zaoberáme implementáciou hashovacieho algoritmu SHA-1 upraveného pre paralelné spracovanie uvedeného v článku \cite{MSHA}. Našim hlavným cieľom je však ukázať, prečo v súčasnosti neexistuje automatický paralelizmus výpočtovo náročných úloh a ich vykonávanie na grafických procesoroch.
+Keďže grafické procesory sú prispôsobené pre paralelné spracovanie úloh na viacerých jadrách, implementácia takto prispôsobeného problému zníži čas potrebný na jeho vykonanie oproti klasickým počítačovým procesorom. V článku sa zaoberáme základnou architektúrou CPU a GPU procesorov, implementáciou hashovacieho algoritmu SHA-1 upraveného pre paralelné spracovanie uvedeného v článku \cite{MSHA}, s cieľom poukázať na hlavné rozdiely v architektúrach týchto procesorov. Našim hlavným cieľom je však ukázať, prečo v súčasnosti neexistuje automatický paralelizmus výpočtovo náročných úloh a ich vykonávanie na grafických procesoroch.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -51,7 +51,8 @@ SHA-1, Modified SHA-1, CPU architecture, GPU architecture, Automatic parallelism
 
 \section{Úvod}
 
-V posledných rokoch sa grafické procesory začali dostávať do popredia nie len na spracovanie obrazu, ale aj na vykonávanie, či spracovanie rôznych náročných výpočtových úloch. Architektúra grafických procesorov bola navrhnutá a optimalizovaná pre paralelné spracovanie inštrukcií a dát, zatiaľ čo CPU sú optimalizované pre rýchle sequenčné spracovanie toku programu. V tomto článku porovnáme základnú architektúru CPU a GPU. Vysvetlíme princíp fungovania algoritmu SHA-1 a jeho modifikovanej paralelizovanej verzii. Daný algoritmus implementujeme v programovacom jazyku C pre klasické a v jazyku CUDA pre grafické procesory. Výsledky ukazujú porovnanie nameraných časov vykonávania daného algoritmu na CPU a GPU. Taktiež daný algoritmus porovnávame s implementáciou štandartne používaného nástroja pre výpočet hashovacích funkcií SHA. V závere diskutujeme, prečo ešte v súčasnosti neexistuje automatický paralelizmus a automatické vykonávanie výpočtovo náročných úloch na grafických procesoroch.
+V posledných rokoch sa grafické procesory začali dostávať do popredia, nie len na spracovanie obrazu, ale aj na vykonávanie, či spracovanie rôznych náročných výpočtových úloch. Architektúra grafických procesorov bola navrhnutá a optimalizovaná pre paralelné spracovanie inštrukcií a dát, zatiaľ čo CPU sú optimalizované pre rýchle sequenčné spracovanie toku programu. \\
+Zvyšovanie rýchlosti a výpočtovej výkonnosti počítačov je čoraz viac žiadanejšie. Na rôzne výpočtovo náročné úlohy sa používajú multipočítače, no aj pre tieto výkonné stroje by niektoré úlohy trvali dlho. Preto sa vymýšľajú rôzne spôsoby, ako dosiahnúť lepší výkon. Jedným zo spôsobou je preniesť spracovanie náročných úloh na grafické procesory. To si však vyžaduje určité technické znalosti. V tomto článku preto porovnáme základnú architektúru CPU a GPU. Vysvetlíme princíp fungovania algoritmu SHA-1 a jeho modifikovanej paralelizovanej verzii, pretože hashovacie funkcie sú používané v oblasti počítačovej bezpečnosti. Daný algoritmus implementujeme v programovacom jazyku C pre klasické a v jazyku CUDA pre grafické procesory. Výsledky ukazujú porovnanie nameraných časov vykonávania daného algoritmu na CPU a GPU. Taktiež daný algoritmus porovnávame s implementáciou štandartne používaného nástroja pre výpočet hashovacích funkcií SHA. V závere diskutujeme, prečo ešte v súčasnosti neexistuje automatický paralelizmus a automatické vykonávanie výpočtovo náročných úloch na grafických procesoroch.
 
 \section{CPU verzus GPU architektúra}
 
@@ -261,7 +262,7 @@ Princíp fungovania modifikovanej SHA:
      		\State ${H_i = SHA(block)}$		
      	\EndFor
    	\State ${H += H_i}$ \Comment{+ mean concatenate}   	
-   	\If {(size(H) != 20B)} ${MSHA(M)}$
+   	\If {(size(H) != 20B)} ${MSHA(H)}$
    		\Else {  return}
    	\EndIf
        \EndFunction
@@ -287,24 +288,145 @@ Pre všetky hashovacie funkcie je dôležité spĺňať nasledujúce vlastnosti 
 
 Daný modifikovaný algoritmus SHA-1 by mal spĺňať všetky vlastnosti hashovacích funkcií, viď článok\cite{MSHA}.
 
+\subsection{Testovacie prostredie}
 
-\subsection{Testovacie prostredie a implementácia}
+Dané navrhnuté riešenie implementácie modifikovaného algoritmu SHA-1 bolo realizované na nasledujúcom technickom vybavení počítača (Hardware):
+
+\begin{itemize}
+	\item{Procesor: Intel Core i3-4100M 2.50GHz, 2 Core(s), 4 Logical Processor(s)}
+	\item{Hlavná pamäť (RAM): 12.0 GB DDR3, 2.5GHz}
+	\item{Grafický procesor: NVIDIA GeForce GT 740M, 2.0 GB DDR3}
+\end{itemize}
+
+a programového vybavenia:
+
+\begin{itemize}
+	\item{Operačný systém: Windows 8.1 - 64-bit}
+	\item{Vývojové prostredie:}
+	\begin{itemize}
+		\item{Microsoft Visual Studio Enterprise 2015 v14.0.25431.01}
+		\item{Nsight Visual Studio Edition v5.4}
+	\end{itemize}
+\end{itemize}
+
+\subsection{Implementácia}
+
+Vyššie opísaný modifikovaný algoritmus SHA-1 sme implementovali v jazyku C a v jazyku CUDA. Pre porovnanie výpočtového výkonu daných procesorov sme sa rozhodli merať čas len funkcie, ktorá priamo vykonáva daný výpočet hashu. Čas potrebný na prenos dát z hlavnej pamäte do video pamäte a späť a čas potrebný pre načítanie súboru do pamäte sme nezáratavali do celkového času z dôvodu, že pri daných časoch by sme už neporovnávali samotný výkon procesorov, čo bolo našou úlohou.\\
+Implementácia na CPU vyzerá rovnako ako opísaný algoritmus pomocou pseudo kódu vyššie v článku. Implementácia v jazyku CUDA pre grafické procesory je trochu odlišná. Rozdelenie správy do jednotlivých blokov je zabezpečené pomocou indexovania na grafickej karte.
+
+\begin{algorithm}
+   \caption{Modified SHA-1 (pseudo code CUDA)}
+    \begin{algorithmic}[1]
+      \Function{cuda}{$Message$ $M$}
+        	\State ${padding(M)}$ \Comment{Put zero bytes into message and its size at the end}
+        	\State ${copyToDevice(M)}$ \Comment{Copy message to video RAM}
+     	\State ${SHA<<< blocks, 512 >>> (m);}$ \Comment{blocks - number of message blocks, 1 block = 1 core GPU, 512 - number of threads for 1 block}
+     	\State ${H = copyToHost()}$ \Comment{Copy result to host from video RAM}	
+   	
+   	\If {(size(H) != 20B)} ${cuda(H)}$
+   		\Else {  return}
+   	\EndIf
+       \EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+Meranie času na CPU bolo realizované pomocou knižnice ${<sys\backslash timeb.h>}$ a v jazyku CUDA sme použili ${cudaEvent}$ funckie cudaEventRecord() pre časové pečiatky vykonávania na GPU a cudaEventElapsedTime() pre vypočítanie rozdielu časov. 
+
 
 \section{Výsledky a grafické porovnanie}
 
+\subsection{Provonanie implementácií}
+Dané implementácie sme navzájom porovnali na vzorke rôznych veľkosti súborov od 0,250MB až po 600MB. Dané merania pre každú veľkosť súboru sme uskutočnili 10 krát pre obe implementácie. Následne sme vypočítali priemer z meraní a zrýchlenie medzi CPU a GPU. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/AVG-CPU}
+\caption{Priemerný čas výpočtu MSHA-1 na CPU}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/AVG-GPU}
+\caption{Priemerný čas výpočtu MSHA-1 na GPU}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/CPU-GPU}
+\caption{Porovnanie CPU a GPU časov pre jednotlivé veľkosti súborov}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/CPU-GPUdetail}
+\caption{Porovnanie CPU a GPU časov pre jednotlivé veľkosti súborov (detailnejšie zobrazenie)}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/CPU-GPU2}
+\caption{Porovnanie CPU a GPU časov pre jednotlivé veľkosti súborov}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/CPU-GPUdetail2}
+\caption{Porovnanie CPU a GPU časov pre jednotlivé veľkosti súborov (detailnejšie zobrazenie)}
+\end{figure}
+
+\clearpage
+
+\subsection{Porovnanie implementácie s reálnym nástrojom}
+
+Implementáciu sme taktiež porovnali s reálnym nástrojom \textit{sha1sum}, používaným na hashovanie súborov, dostupným pre platformy Windows aj Linux. Do takéhotot porovnania sme započítali aj časy pre načítavanie súboru do pamäte. Nezarátavali sme však čas potrebný na presun dát z hlavnej pamäte do video pamäte. Pre odmeranie vykonávania hashu nástrojom sha1sum sme použili štandartne dostupný nástroj \textit{time}. Dané merania sme taktiež vykonali na pre rôzne veľkosti ako v predchádzajúcom prípade. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/sha1sum}
+\caption{Porovnanie s nástrojom sha1sum}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=3in]{img/sha1sumdetail}
+\caption{Porovnanie s nástrojom sha1sum  (detailnejšie zobrazenie)}
+\end{figure}
+
+
+\section{Automatické využitie GPU}
+
+
 \section{Záver}
 
+\begin{table}[h!]
+\centering
+\caption{CPU vs. GPU}
+\label{my-label}
+\begin{tabular}{lllll}
+Size {[}MB{]} & AVG - GPU {[}ms{]} & AVG - CPU {[}ms{]} & CPU/GPU     &  \\
+0.25          & 1.4047648          & 2                  & 1.423725879 &  \\
+0.5           & 1.958352           & 4                  & 2.042533722 &  \\
+1             & 2.7868832          & 9                  & 3.229414135 &  \\
+2             & 4.4332639          & 17.2               & 3.879760012 &  \\
+3             & 5.6588672          & 25.5               & 4.506202231 &  \\
+4             & 7.3489853          & 34.3               & 4.66731101  &  \\
+5             & 8.7965731          & 42.6               & 4.842794974 &  \\
+6             & 10.2195169         & 50.6               & 4.95131037  &  \\
+7             & 11.7593665         & 60                 & 5.102315673 &  \\
+8             & 13.0595455         & 67.6               & 5.1762904   &  \\
+9             & 14.5545724         & 76.5               & 5.256080213 &  \\
+10            & 16.0727678         & 84.5               & 5.257339685 &  \\
+20            & 30.7733154         & 166.4              & 5.407282181 &  \\
+60            & 84.3981097         & 501.7              & 5.944445933 &  \\
+300           & 411.9776641        & 2504.7             & 6.079698533 & 
+\end{tabular}
+\end{table}
 
-\appendices
-\section{aaa}
 
 
 
-% use section* for acknowledgement
-\section*{Acknowledgment}
 
-
-The authors would like to thank...
 
 
 % Can use something like this to put references on a page
@@ -314,7 +436,7 @@ The authors would like to thank...
 \fi
 
 
-
+\newpage
 
 \begin{thebibliography}{1}
 
