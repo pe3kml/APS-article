@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2017.2.16)  17 NOV 2017 20:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2017.2.16)  17 NOV 2017 22:16
 entering extended mode
 **./main.tex
 (main.tex
@@ -807,53 +807,87 @@ Package pdftex.def Info: img/CPU-GPUdetail2.png used on input line 374.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[4 <./img/MSHA.png> <./img/AVG-CPU.png>] [5 <./img/AVG-GPU.png> <./img/CPU-GPU.
-png> <./img/CPU-GPUdetail.png> <./img/CPU-GPU2.png> <./img/CPU-GPUdetail2.png>]
-<img/sha1sum.png, id=52, 365.11406pt x 219.82124pt>
+[4 <./img/MSHA.png> <./img/AVG-CPU.png>]
+<img/sha1sum.png, id=44, 365.11406pt x 219.82124pt>
 File: img/sha1sum.png Graphic file (type png)
  <use img/sha1sum.png>
-Package pdftex.def Info: img/sha1sum.png used on input line 386.
+Package pdftex.def Info: img/sha1sum.png used on input line 385.
 (pdftex.def)             Requested size: 216.81pt x 130.53195pt.
 
-<img/sha1sumdetail.png, id=53, 364.36125pt x 221.32687pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<img/sha1sumdetail.png, id=45, 364.36125pt x 221.32687pt>
 File: img/sha1sumdetail.png Graphic file (type png)
 
 <use img/sha1sumdetail.png>
-Package pdftex.def Info: img/sha1sumdetail.png used on input line 392.
+Package pdftex.def Info: img/sha1sumdetail.png used on input line 391.
 (pdftex.def)             Requested size: 216.81pt x 131.69617pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 447--448
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \vbox (badness 5622) has occurred while \output is active []
+
+
+Overfull \vbox (9.41368pt too high) has occurred while \output is active []
+
+
+[5 <./img/AVG-GPU.png> <./img/CPU-GPU.png> <./img/CPU-GPUdetail.png> <./img/CPU
+-GPU2.png> <./img/CPU-GPUdetail2.png> <./img/sha1sum.png> <./img/sha1sumdetail.
+png>]
+Underfull \hbox (badness 10000) in paragraph at lines 457--458
 []\OT1/ptm/m/n/8 TATOURIAN, Alan. Nvi-dia gpu ar-chi-tec-ture and cuda
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 447--448
+Underfull \hbox (badness 10000) in paragraph at lines 457--458
 \OT1/ptm/m/n/8 prog-ram-ming en-vi-ron-ment. URL http://code. msdn. mic-ro-soft
 .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 454--455
+Underfull \hbox (badness 10000) in paragraph at lines 464--465
 \OT1/ptm/m/n/8 cs . cmu . edu / afs / cs / academic / class / 15462-[]f11 / www
  / lec[]slides / lec19 . pdf$,
  []
 
 
-Underfull \hbox (badness 4279) in paragraph at lines 456--457
+Underfull \hbox (badness 4279) in paragraph at lines 466--467
 \OT1/ptm/m/n/8 vs Soc-ket, $http : / / www . daniloaz . com / en / dierences-[
 ]between-[]physical-[]$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
+Underfull \hbox (badness 10000) in paragraph at lines 468--469
 \OT1/ptm/m/n/8 the-[]continuing-[]importance-[]of-[]gpus-[]for-[]more-[]than-[]
 just-[]pretty-[]pictures/$,
  []
 
 
-Underfull \hbox (badness 3098) in paragraph at lines 462--463
+Underfull \hbox (badness 3098) in paragraph at lines 472--473
 []\OT1/ptm/m/n/8 ROGAWAY, Phil-lip; SH-RIMP-TON, Tho-mas. Cryp-tog-rap-hic hash
 -
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 476.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsptm.fd"
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 476.
+
+Underfull \hbox (badness 10000) in paragraph at lines 476--477
+[]\OT1/ptm/m/n/8 Automatic Pa-ral-le-li-za-tion with Intel[] Com-pi-lers, In-te
+l,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 476--477
+\OT1/ptm/m/n/8 No-vem-ber 2011, $https : / / software . intel . com / en-[]us /
+ articles /
  []
 
 
@@ -867,30 +901,29 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
-
- <./img/sha1sum.png> <./img/sha1sumdetail.png>] (main.aux) ) 
+[6] (main.aux) ) 
 Here is how much of TeX's memory you used:
- 4746 strings out of 493333
- 67130 string characters out of 3139194
- 151166 words of memory out of 3000000
- 8176 multiletter control sequences out of 15000+200000
- 40150 words of font info for 77 fonts, out of 3000000 for 9000
+ 4767 strings out of 493333
+ 67462 string characters out of 3139194
+ 156170 words of memory out of 3000000
+ 8193 multiletter control sequences out of 15000+200000
+ 41228 words of font info for 78 fonts, out of 3000000 for 9000
  1144 hyphenation exceptions out of 8191
  40i,7n,25p,1232b,345s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/M
-iKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pf
-b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Fil
-es/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fon
-ts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/tim
-es/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 462918 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on main.pdf (6 pages, 473435 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
+ 95 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

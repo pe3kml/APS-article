@@ -375,11 +375,10 @@ Dané implementácie sme navzájom porovnali na vzorke rôznych veľkosti súbor
 \caption{Porovnanie CPU a GPU časov pre jednotlivé veľkosti súborov (detailnejšie zobrazenie)}
 \end{figure}
 
-\clearpage
 
 \subsection{Porovnanie implementácie s reálnym nástrojom}
 
-Implementáciu sme taktiež porovnali s reálnym nástrojom \textit{sha1sum}, používaným na hashovanie súborov, dostupným pre platformy Windows aj Linux. Do takéhotot porovnania sme započítali aj časy pre načítavanie súboru do pamäte. Nezarátavali sme však čas potrebný na presun dát z hlavnej pamäte do video pamäte. Pre odmeranie vykonávania hashu nástrojom sha1sum sme použili štandartne dostupný nástroj \textit{time}. Dané merania sme taktiež vykonali na pre rôzne veľkosti ako v predchádzajúcom prípade. 
+Implementáciu sme taktiež porovnali s reálnym nástrojom \textit{sha1sum}, používaným na hashovanie súborov, dostupným pre platformy Windows aj Linux. Do takéhoto porovnania sme započítali aj časy pre načítavanie súboru do pamäte. Nezarátavali sme však čas potrebný na presun dát z hlavnej pamäte do video pamäte. Pre odmeranie vykonávania hashu nástrojom sha1sum sme použili štandartne dostupný nástroj \textit{time}. Dané merania sme taktiež vykonali na pre rôzne veľkosti ako v predchádzajúcom prípade. 
 
 \begin{figure}[h!]
 \centering
@@ -396,13 +395,26 @@ Implementáciu sme taktiež porovnali s reálnym nástrojom \textit{sha1sum}, po
 
 \section{Automatické využitie GPU}
 
+Viacjadrové procesory spolu s kompilátormi v dnešnej dobe podporujú funkcionalitu pre automatický paralelizmus nie len na úrovni inštrukcií, ale aj jednoduchšie cykly v kóde \cite{automatic}. Pre zložitejšií zdrojový kód programu bolo vymyslené \textit{OpenMP}. To dokáže s minimálnym úsilím programátora vykonávať výpočtovo náročnú úlohu na viacerých jadrách procesora CPU.
+Multijadrové procesory sa však ešte stále nevyrovnajú grafickým procesorom. Pre automatické paralelizované spracovanie na grafických procesoroch by kompilátor musel:
+
+\begin{itemize}
+	\item{nájsť nezávislé časti programu}
+	\item{prekopírovať dáta z pamäte RAM do video pamäte a späť}
+	\item{rozdeliť dáta pre jednotlivé bloky a thready GPU}
+	\item{preložiť kód pre procesor GPU}
+\end{itemize}
+
+a zároveň by to muselo byť ovládané z CPU. Najnovšie grafické procesory však umožňujú spustiť väčší program (kernel), ktorý dokáže spúšťať menšie programy. To umožňuje spustenie bez potreby koordinácie CPU \cite{tatourian} a dosiahnutia tak vyššieho výkonu.
 
 \section{Záver}
+V článku sme porovnali implementáciu modifikovanej SHA-1 pre paralelné spracovanie na CPU a GPU, kde sme dosiahli určité zrýchlenie (viď tabuľka \ref{table}). Tieto implementácie sme taktiež porovnali aj s bežne používaným nástrojom sha1sum, kde naša implementácia algoritmu na CPU bola o čosi menej efektívna, čo odôvodňujeme optimalizáciou zdrojového kódu a trochu inou časovou náročnosťou klasickej a modifikovanej SHA-1. Implementáciou pre GPU sme sa však priblížili k hodnotám časov tohto nástroja. Môžme teda predpokladať, že pri použití zdrojového kódu z nástroja v našej implementácii na GPU, by sme zrýchlili výpočet hashu. 
+
 
 \begin{table}[h!]
 \centering
 \caption{CPU vs. GPU}
-\label{my-label}
+\label{table}
 \begin{tabular}{lllll}
 Size {[}MB{]} & AVG - GPU {[}ms{]} & AVG - CPU {[}ms{]} & CPU/GPU     &  \\
 0.25          & 1.4047648          & 2                  & 1.423725879 &  \\
@@ -436,8 +448,6 @@ Size {[}MB{]} & AVG - GPU {[}ms{]} & AVG - CPU {[}ms{]} & CPU/GPU     &  \\
 \fi
 
 
-\newpage
-
 \begin{thebibliography}{1}
 
 \bibitem{hennessy2007compute}
@@ -449,19 +459,21 @@ TATOURIAN, Alan. Nvidia gpu architecture and cuda programming environment. URL h
 \bibitem{hyperthreading}
 PRECOMPUTATION, Speculative. Hyper-Threading Technology.
 
-\bibitem{hyper2}Intel Pentium 4 3.06 GHz with Hyper-Threading support, \url{http://ixbtlabs.com/articles2/pentium43ghzht/}, 12.11.2017.
+\bibitem{hyper2}Intel Pentium 4 3.06 GHz with Hyper-Threading support, \url{http://ixbtlabs.com/articles2/pentium43ghzht/}, Accessed: 12.11.2017.
 
-\bibitem{GPU2011Fatahalian}How a GPU Works - Kayvon Fatahalian 15-462 (Fall 2011), \url{https://www.cs.cmu.edu/afs/cs/academic/class/15462-f11/www/lec_slides/lec19.pdf}, 12.11.2017.
+\bibitem{GPU2011Fatahalian}How a GPU Works - Kayvon Fatahalian 15-462 (Fall 2011), \url{https://www.cs.cmu.edu/afs/cs/academic/class/15462-f11/www/lec_slides/lec19.pdf}, Accessed:12.11.2017.
 
-\bibitem{picture}Differences between physical CPU vs logical CPU vs Core vs Thread vs Socket, \url{http://www.daniloaz.com/en/differences-between-physical-} \url{cpu-vs-logical-cpu-vs-core-vs-thread-vs-socket/}, 12.11.2017.
+\bibitem{picture}Differences between physical CPU vs logical CPU vs Core vs Thread vs Socket, \url{http://www.daniloaz.com/en/differences-between-physical-} \url{cpu-vs-logical-cpu-vs-core-vs-thread-vs-socket/}, Accessed: 12.11.2017.
 
-\bibitem{gpuRowe}The Continuing Importance of GPUs For More Than Just Pretty Pictures - Jeff Rowe, \url{https://www10.mcadcafe.com/blogs/jeffrowe/2017/03/16/the-continuing-importance-of-gpus-for-more-than-just-pretty-pictures/}, 12.11.2017
+\bibitem{gpuRowe}The Continuing Importance of GPUs For More Than Just Pretty Pictures - Jeff Rowe, \url{https://www10.mcadcafe.com/blogs/jeffrowe/2017/03/16/the-continuing-importance-of-gpus-for-more-than-just-pretty-pictures/}, Accessed:12.11.2017
 
 \bibitem{sha-algo}GALLAGHER, Patrick; DIRECTOR, Acting. Secure hash standard (shs). FIPS PUB, 1995, 180-3.
 
 \bibitem{CHF}ROGAWAY, Phillip; SHRIMPTON, Thomas. Cryptographic hash-function basics: Definitions, implications, and separations for preimage resistance, second-preimage resistance, and collision resistance. In: International Workshop on Fast Software Encryption. Springer, Berlin, Heidelberg, 2004. p. 371-388.
 
 \bibitem{MSHA}KISHORE, Neha; KAPOOR, Bhanu. An efficient parallel algorithm for hash computation in security and forensics applications. In: Advance Computing Conference (IACC), 2014 IEEE International. IEEE, 2014. p. 873-877.
+
+\bibitem{automatic}Automatic Parallelization with Intel® Compilers, Intel, November 2011, \url{https://software.intel.com/en-us/articles/automatic-parallelization-with-intel-compilers}, Accessed: 17.11.2017
 
 \end{thebibliography}
 
