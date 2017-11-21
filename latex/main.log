@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2017.2.16)  20 NOV 2017 20:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2017.2.16)  21 NOV 2017 17:39
 entering extended mode
 **./main.tex
 (main.tex
@@ -839,12 +839,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [5 <./img/AVG-CPU-new2.png> <./img/AVG-GPU-new3.png> <./img/CPU-GPU-new.png> <.
 /img/CPU-GPU-new2.png> <./img/CPU-GPU2.png> <./img/CPU-GPUdetail2.png> <./img/s
-ha1sum.png>] <img/acceleration.png, id=55, 1485.55pt x 834.11626pt>
+ha1sum.png>] <img/acceleration.png, id=55, 312.41719pt x 379.4175pt>
 File: img/acceleration.png Graphic file (type png)
 
 <use img/acceleration.png>
 Package pdftex.def Info: img/acceleration.png used on input line 447.
-(pdftex.def)             Requested size: 216.81pt x 121.7265pt.
+(pdftex.def)             Requested size: 216.81pt x 263.30939pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -934,9 +934,9 @@ ram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files
 /MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts
 /type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times
 /utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (6 pages, 653407 bytes).
+Output written on main.pdf (6 pages, 641722 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
+ 96 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
