@@ -174,6 +174,16 @@ Programy, napísané pre grafické procesory, nevedia pristupovať k dátam ulo�
 \caption{Spojenie CPU a GPU}
 \end{figure}
 
+\subsection{Spracovanie dát na grafických procesoroch}
+
+Grafické procesory v jednom jadre spracovávajú dáta podľa modelu \textit{SIMT}, čo v preklade znamená rozdelenie rovnakej, nezávislej  práce na rovnaké synchronizované vlákna \cite{gg}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=1.5in]{img/stream}
+\caption{Príklad spracovania na rôznych úrovniach GPU}
+\end{figure}
+
 %**********************************************************************************************************************
 \section{Opis riešenia}
 
@@ -401,7 +411,7 @@ Implementáciu sme taktiež porovnali s reálnym nástrojom \textit{sha1sum}, po
 
 \section{Automatické využitie GPU}
 
-Viacjadrové procesory spolu s kompilátormi v dnešnej dobe podporujú funkcionalitu pre automatický paralelizmus nie len na úrovni inštrukcií, ale aj jednoduchšie cykly v kóde \cite{automatic}. Pre zložitejšií zdrojový kód programu bolo vymyslené \textit{OpenMP}. To dokáže s minimálnym úsilím programátora vykonávať výpočtovo náročnú úlohu na viacerých jadrách procesora CPU.
+Viacjadrové procesory spolu s kompilátormi v dnešnej dobe podporujú funkcionalitu pre automatický paralelizmus nie len na úrovni inštrukcií, ale aj jednoduchšie cykly v kóde \cite{automatic}. Pre zložitejší zdrojový kód programu bolo vymyslené \textit{OpenMP}. To dokáže s minimálnym úsilím programátora vykonávať výpočtovo náročnú úlohu na viacerých jadrách procesora CPU.
 Multijadrové procesory sa však ešte stále nevyrovnajú grafickým procesorom. Pre automatické paralelizované spracovanie na grafických procesoroch by kompilátor musel:
 
 \begin{itemize}
@@ -486,6 +496,8 @@ PRECOMPUTATION, Speculative. Hyper-Threading Technology.
 \bibitem{MSHA}KISHORE, Neha; KAPOOR, Bhanu. An efficient parallel algorithm for hash computation in security and forensics applications. In: Advance Computing Conference (IACC), 2014 IEEE International. IEEE, 2014. p. 873-877.
 
 \bibitem{automatic}Automatic Parallelization with Intel® Compilers, Intel, November 2011, \url{https://software.intel.com/en-us/articles/automatic-parallelization-with-intel-compilers}, Accessed: 17.11.2017
+
+\bibitem{gg} GPU Architectures, \url{https://courses.cs.washington.edu/courses/cse471/13sp/lectures/GPUsStudents.pdf}, Accessed: 21.11.2017
 
 \end{thebibliography}
 
